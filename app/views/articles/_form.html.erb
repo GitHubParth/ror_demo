@@ -1,0 +1,15 @@
+<div class="w-[500px] mx-auto border border-gray-400 rounded-md p-8 py-6 flex items-center justify-center">
+    <%= form_with model: @article, local: true, class: 'w-full' do |f| %>
+        <div class="h-14 mb-4 w-full">
+            <p class="font-bold mb-1"><%= f.label :title, "Title" %><br/></p>
+            <%= f.text_field :title, placeholder: "Enter Title", class: "border !outline-none px-2 p-1 rounded border-gray-400 w-full" %>
+        </div>
+        <div class="mb-2 w-full">
+            <p class="font-bold mb-1"><%= f.label :description, "Description" %><br/></p>
+            <%= f.text_area :description, placeholder: "Enter Description", class: "border !outline-none px-2 p-1 rounded border-gray-400 w-full" %>
+        </div>
+        <div class="border cursor-pointer mx-auto bg-blue-600 text-white text-xs font-medium w-fit rounded font-medium p-1.5 px-2.5 hover:bg-blue-800 transition-all duration-300">
+            <%= f.submit %>
+        </div>
+    <% end %>
+</div>
