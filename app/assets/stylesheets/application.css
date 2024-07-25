@@ -13,3 +13,15 @@
  *= require_tree .
  *= require_self
  */
+
+:root {
+   --primary-color: #1D3557;
+   --secondary-color: #F1FAEE;
+   --mid-blue: #457B9D;
+   --light-blue: #A8DADC;
+   --primary-red: #E63946;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}

@@ -1,20 +1,22 @@
-<h1 class="w-full text-center text-4xl font-bold my-10">Show Article Details</h1>
+<div class="h-full mt-32 my-16">
+    <h1 class="w-full text-center text-4xl font-bold my-10">Show Article Details</h1>
 
-<div class="w-[400px] mx-auto flex flex-col items-start justify-center gap-2 border border-gray-400 rounded-md py-6">
-    <p class="px-8 flex flex-col">
-        <span class="font-bold">Title</span>
-        <%= @article.title %>
-    </p>
-    <hr class="w-full my-3 h-[1.5px] bg-gray-400" />
-    <p class="px-8 flex flex-col">
-        <span class="font-bold">Description</span>
-        <%= @article.description %>
-    </p>
-</div>
+    <div class="w-[600px] mx-auto flex flex-col items-start justify-center border border-gray-400 rounded-lg overflow-hidden shadow-md">
+        <p class="h-14 text-xl font-bold px-4 py-2 bg-gray-200 text-[var(--primary-color)] w-full flex items-center justify-center italic">by Parth Padhiar</p>
+        <div class="px-4 py-5 h-full overflow-y-scroll no-scrollbar flex flex-col items-center justify-start gap-2 w-full">
+            <p class="font-bold text-lg "><%= @article.title %></p>
+            <p class="text-sm"><%= @article.description %></p>
+        </div>
+        <p class="h-14 text-lg px-4 py-2 bg-gray-200 text-[var(--primary-color)] w-full flex items-center justify-center">
+            <small>Created <span class="font-bold"><%= time_ago_in_words(@article.created_at) %></span> ago, 
+            edited <span class="font-bold"><%= time_ago_in_words(@article.updated_at) %></span> ago</small>
+        </p>
+    </div>
 
-<div class="w-full flex items-center justify-center gap-2 my-6">
-    <p class="text-xs cursor-pointer font-medium px-2 py-1 bg-blue-600 text-white rounded"><%= link_to "Add New Article", new_article_path() %></p>
-    <p class="text-xs cursor-pointer font-medium px-2 py-1 bg-green-600 text-white rounded"><%= link_to "Edit", edit_article_path(@article) %></p>
-    <p class="text-xs cursor-pointer font-medium px-2 py-1 bg-red-600 text-white rounded"><%= link_to "Delete", article_path(@article), data: { turbo_method: :DELETE, turbo_confirm: "Are you sure, you want to delete this article ?" } %></p>
-    <p class="text-xs cursor-pointer font-medium px-2 py-1 bg-blue-600 text-white rounded"><%= link_to "Back to Articles", articles_path %></p>
+    <div class="w-full flex items-center justify-center gap-2 my-6">
+        <p class="text-xs cursor-pointer font-medium px-2 py-1 bg-blue-600 text-white rounded"><%= link_to "Add New Article", new_article_path() %></p>
+        <p class="text-xs cursor-pointer font-medium px-2 py-1 bg-green-600 text-white rounded"><%= link_to "Edit", edit_article_path(@article) %></p>
+        <p class="text-xs cursor-pointer font-medium px-2 py-1 bg-red-600 text-white rounded"><%= link_to "Delete", article_path(@article), data: { turbo_method: :DELETE, turbo_confirm: "Are you sure, you want to delete this article ?" } %></p>
+        <p class="text-xs cursor-pointer font-medium px-2 py-1 bg-blue-600 text-white rounded"><%= link_to "Back to Articles", articles_path %></p>
+    </div>
 </div>

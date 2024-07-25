@@ -1,5 +1,5 @@
 <% flash.each_with_index do |(name, msg), idx| %>
-    <div id="flash_div_#{idx}" class="absolute z-10 top-0 left-0 w-screen h-screen flex items-center justify-center bg-[rgba(0,0,0,0.5)]">
+    <div id="flash_div_#{idx}" class="absolute z-10 top-0 left-0 w-full min-w-screen h-screen flex items-center justify-center bg-[rgba(0,0,0,0.7)]">
       <p class="relative bg-gray-100 border-gray-400 shadow-2xl w-[500px] px-5 py-5 rounded font-medium text-lg flex gap-3 justify-start items-center">
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-7 w-7 text-green-700" viewBox="0 0 16 16">
             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>

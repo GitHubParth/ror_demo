@@ -4,25 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 <body>
-    <h1 class="w-full text-center text-4xl font-bold my-10 mb-8">Welcome to Our Homepage</h1>
-    <p class="w-2/3 mx-auto text-center text-lg mb-8">We are a company that specializes in providing high-quality products and services to our customers. Here you can find information about our products and services.</p>
-    <p class="w-fit mx-auto cursor-pointer font-medium px-4 py-2 bg-blue-600 text-white rounded-md mb-8"><%= link_to "Go to Articles Page", articles_path %></p>
-    <nav class="flex items-center justify-center">
-        <ul class="flex space-x-4">
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About Us</a></li>
-            <li><a href="/services">Services</a></li>
-            <li><a href="/contact">Contact Us</a></li>
-        </ul>
-    </nav>
-    <main>
-        <!-- Add your content here -->
+    <main class="w-full h-full gap-5 overflow-hidden">
+        
+        <div class="relative">
+            <div class="swiper mySwiper w-full h-[calc(100vh-5rem)]">
+                <div class="swiper-wrapper w-full h-full">
+                    <div class="swiper-slide w-full h-full">
+                        <img src="https://plus.unsplash.com/premium_photo-1666273175617-e8d2834f4fc0?q=80&w=1893&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Image" class="w-full h-full object-cover object-center">
+                    </div>
+                    <div class="swiper-slide w-full h-full">
+                        <img src="https://images.unsplash.com/photo-1671427801641-187826edfb2a?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Image" class="w-full h-full object-cover object-center">
+                    </div>
+                    <div class="swiper-slide w-full h-full">
+                        <img src="https://plus.unsplash.com/premium_photo-1673002094103-b2657755f800?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Image" class="w-full h-full object-cover object-center">
+                    </div>
+                </div>
+            </div>
+            <div class="absolute w-full h-full top-0 left-0 z-10 bg-[rgba(0,0,0,0.7)] flex flex-col items-center justify-center sm:gap-8 gap-5 px-7 select-none">
+                <h1 class="w-full text-center text-4xl sm:text-[5vw] font-bold text-[var(--secondary-color)] leading-tight">Welcome to Our Homepage</h1>
+                <p class="sm:w-2/3 w-full mx-auto text-center text-base sm:text-[1.7vw] sm:leading-[2.5vw] mb-3 text-gray-400">We are a company that specializes in providing high-quality products and services to our customers. Here you can find information about our products and services. Click the below button to go to Articles Page.</p>
+                <p class="w-fit mx-auto cursor-pointer font-medium sm:text-[1.3vw] px-4 py-2 bg-blue-600 text-white rounded-md lg:rounded-xl"><%= link_to "Go to Articles Page", articles_path %></p>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script>
+          var swiper = new Swiper(".mySwiper", {
+            spaceBetween: 30,
+            centeredSlides: true,
+            autoplay: {
+              delay: 3000,
+              disableOnInteraction: false,
+            },
+          });
+        </script>
     </main>
-    <footer class="flex items-center justify-center">
-        <p>&copy; 2022 Our Homepage. All rights reserved.</p>
-    </footer>
 </body>
 </html>
        
