@@ -1,16 +1,20 @@
 <div class="max-w-[800px] shadow-lg w-full mx-auto bg-[var(--primary-color)] rounded-xl p-8 py-8 flex items-center justify-center">
     <%= form_with model: @user, local: true, class: 'w-full' do |f| %>
         <div class="h-auto mb-6 w-full relative">
-            <p class="text-lg text-[var(--light-blue)] font-mono mb-1"><%= f.label :username, "Username" %><br/></p>
-            <%= f.text_field :username, placeholder: "Enter Username", class: "border border-[var(--light-blue)] font-light text-lg rounded-lg px-3 bg-transparent !outline-none text-white tracking-wide w-full h-12" %>
+            <p class="text-lg text-[var(--light-blue)] font-mono mb-1"><%= f.label :username, "Username" %></p>
+            <%= f.text_field :username, placeholder: "Enter Username", class: "border border-[var(--light-blue)] transition-all duration-300 focus:ring-2 focus:ring-offset-2 focus:!ring-offset-[var(--primary-color)] focus:ring-[var(--secondary-color)] font-light text-lg rounded-lg px-3 bg-transparent !outline-none text-white tracking-wide w-full h-12" %>
         </div>
         <div class="h-auto mb-6 w-full relative">
-            <p class="text-lg text-[var(--light-blue)] font-mono mb-1"><%= f.label :email, "Email" %><br/></p>
-            <%= f.text_field :email, placeholder: "Enter Email", class: "border border-[var(--light-blue)] font-light text-lg rounded-lg px-3 bg-transparent !outline-none text-white tracking-wide w-full h-12" %>
+            <p class="text-lg text-[var(--light-blue)] font-mono mb-1"><%= f.label :email, "Email" %></p>
+            <%= f.text_field :email, placeholder: "Enter Email", class: "border border-[var(--light-blue)] transition-all duration-300 focus:ring-2 focus:ring-offset-2 focus:!ring-offset-[var(--primary-color)] focus:ring-[var(--secondary-color)] font-light text-lg rounded-lg px-3 bg-transparent !outline-none text-white tracking-wide w-full h-12" %>
         </div>
         <div class="h-auto mb-6 w-full relative">
-            <p class="text-lg text-[var(--light-blue)] font-mono mb-1"><%= f.label :password, "Password" %><br/></p>
-            <%= f.password_field :password, placeholder: "Enter Password", class: "border border-[var(--light-blue)] font-light text-lg rounded-lg px-3 bg-transparent !outline-none text-white tracking-wide w-full h-12" %>
+            <p class="text-lg text-[var(--light-blue)] font-mono mb-1"><%= f.label :password, "Password" %></p>
+            <%= f.password_field :password, placeholder: "Enter Password", class: "border border-[var(--light-blue)] transition-all duration-300 focus:ring-2 focus:ring-offset-2 focus:!ring-offset-[var(--primary-color)] focus:ring-[var(--secondary-color)] font-light text-lg rounded-lg px-3 bg-transparent !outline-none text-white tracking-wide w-full h-12" %>
+        </div>
+        <div class="h-auto mb-6 w-full relative">
+            <p class="text-lg text-[var(--light-blue)] font-mono mb-1"><%= f.label :profile_img, "Profile Image" %></p>
+            <%= f.file_field :profile_img, placeholder: "Select Your Profile Image", class: "border border-[var(--light-blue)] transition-all duration-300 focus:ring-2 focus:ring-offset-2 focus:!ring-offset-[var(--primary-color)] focus:ring-[var(--secondary-color)] font-light text-lg rounded-lg py-1.5 px-3 bg-transparent !outline-none text-white tracking-wide w-full h-12" %>
         </div>
         <div class="border cursor-pointer mx-auto bg-[var(--secondary-color)] text-lg text-[var(--primary-color)] font-medium w-fit rounded-lg font-medium p-2 px-4 hover:-translate-y-0.5 transition-all duration-300">
             <%= f.submit "Sign Up" %>
