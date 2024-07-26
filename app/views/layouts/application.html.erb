@@ -15,14 +15,17 @@
 
     <header class="shadow-md shadow-gray-700 fixed top-0 left-0 h-20 bg-[var(--primary-color)] w-full min-w-screen !z-50 flex items-center justify-between px-12 text-[var(--secondary-color)]">
       <!-- <h1 class="text-xl font-bold uppercase">Parth Padhiar</h1> -->
-      <div>
+      <div class="flex items-center justify-center gap-3">
         <img src="https://cdn.pixabay.com/photo/2017/03/16/21/18/logo-2150297_640.png" alt="Logo" class="w-12 h-12 rounded-lg">
+        <h1 class="text-4xl font-bold">BlogSpot</h1>
       </div>
       <nav class="flex items-center justify-center gap-6 text-lg h-full">
         <a class="h-full px-1 hover:text-[var(--primary-red)] hover:scale-110 transition-all before:transition-all before:duration-300 flex items-center justify-center !outline-none font-medium relative before:w-0 before:h-1 before:absolute before:bottom-1 before:left-1/2 hover:before:left-0 hover:before:w-full before:bg-red-700" href=<%= root_path %>>Home</a>
+        <a class="h-full px-1 hover:text-[var(--primary-red)] hover:scale-110 transition-all before:transition-all before:duration-300 flex items-center justify-center !outline-none font-medium relative before:w-0 before:h-1 before:absolute before:bottom-1 before:left-1/2 hover:before:left-0 hover:before:w-full before:bg-red-700" href=<%= users_path %>>Users</a>
         <a class="h-full px-1 hover:text-[var(--primary-red)] hover:scale-110 transition-all before:transition-all before:duration-300 flex items-center justify-center !outline-none font-medium relative before:w-0 before:h-1 before:absolute before:bottom-1 before:left-1/2 hover:before:left-0 hover:before:w-full before:bg-red-700" href=<%= articles_path %>>Articles</a>
         <a class="h-full px-1 hover:text-[var(--primary-red)] hover:scale-110 transition-all before:transition-all before:duration-300 flex items-center justify-center !outline-none font-medium relative before:w-0 before:h-1 before:absolute before:bottom-1 before:left-1/2 hover:before:left-0 hover:before:w-full before:bg-red-700" href=<%= about_path %>>About Us</a>
         <a class="h-full px-1 hover:text-[var(--primary-red)] hover:scale-110 transition-all before:transition-all before:duration-300 flex items-center justify-center !outline-none font-medium relative before:w-0 before:h-1 before:absolute before:bottom-1 before:left-1/2 hover:before:left-0 hover:before:w-full before:bg-red-700" href=<%= contact_path %>>Contact Us</a>
+        <a class="h-full px-1 hover:text-[var(--primary-red)] hover:scale-110 transition-all before:transition-all before:duration-300 flex items-center justify-center !outline-none font-medium relative before:w-0 before:h-1 before:absolute before:bottom-1 before:left-1/2 hover:before:left-0 hover:before:w-full before:bg-red-700" href=<%= signup_path %>>Sign Up</a>
       </nav>
     </header>
 

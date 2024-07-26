@@ -1,4 +1,4 @@
-<% if @article.errors.any? %>
+<% if obj.errors.any? %>
     <div id="errors_div" class="w-full h-full flex items-center justify-center mb-8">
         <div class="relative bg-red-100 border-gray-400 shadow-md max-w-[800px] w-full px-5 py-5 rounded-lg font-medium text-lg flex flex-col gap-3 justify-center items-start">
             <button class="absolute -top-3 -right-3 bg-red-600 p-2 rounded-full shadow-xl" onclick="document.getElementById('errors_div').remove(); window.location.reload()">
@@ -6,9 +6,9 @@
                     <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
                 </svg>
             </button>
-            <h2 class="text-red-700 font-bold !text-lg">The following errors prevented the article from being saved : </h2>
+            <h2 class="text-red-700 font-bold !text-lg">The following errors occured while saving : </h2>
             <ul class="ml-3">
-                <% @article.errors.full_messages.each do |msg| %>
+                <% obj.errors.full_messages.each do |msg| %>
                     <li class="text-sm text-red-700 mb-1">• <%= msg %></li>
                 <% end %>
             </ul>
