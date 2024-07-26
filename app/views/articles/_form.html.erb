@@ -1,14 +1,14 @@
-<div class="max-w-[800px] shadow-lg w-full mx-auto border border-gray-400 rounded-md p-8 py-6 flex items-center justify-center">
+<div class="max-w-[800px] shadow-lg w-full mx-auto bg-[var(--primary-color)] rounded-xl p-8 py-8 flex items-center justify-center">
     <%= form_with model: @article, local: true, class: 'w-full' do |f| %>
-        <div class="h-14 mb-4 w-full">
-            <p class="font-bold mb-1"><%= f.label :title, "Title" %><br/></p>
-            <%= f.text_field :title, placeholder: "Enter Title", class: "border !outline-none px-2 p-1 rounded border-gray-400 w-full" %>
+        <div class="h-auto mb-6 w-full relative">
+            <p class="text-lg text-[var(--light-blue)] font-mono mb-1"><%= f.label :title, "Title" %><br/></p>
+            <%= f.text_field :title, placeholder: "Enter Title", class: "border border-[var(--light-blue)] font-light text-lg rounded-lg px-3 bg-transparent !outline-none text-white tracking-wide w-full h-12" %>
+            </div>
+            <div class="h-auto mb-6 w-full relative">
+            <p class="text-lg text-[var(--light-blue)] font-mono mb-1"><%= f.label :description, "Description" %><br/></p>
+            <%= f.text_area :description, placeholder: "Enter Description", rows: 5, class: "border border-[var(--light-blue)] font-light text-lg rounded-lg px-3 py-2 bg-transparent !outline-none text-white tracking-wide w-full" %>
         </div>
-        <div class="mb-2 w-full">
-            <p class="font-bold mb-1"><%= f.label :description, "Description" %><br/></p>
-            <%= f.text_area :description, placeholder: "Enter Description", class: "border !outline-none px-2 p-1 rounded border-gray-400 w-full" %>
-        </div>
-        <div class="border cursor-pointer mx-auto bg-blue-600 text-white text-xs font-medium w-fit rounded font-medium p-1.5 px-2.5 hover:bg-blue-800 transition-all duration-300">
+        <div class="border cursor-pointer mx-auto bg-[var(--secondary-color)] text-lg text-[var(--primary-color)] font-medium w-fit rounded-lg font-medium p-2 px-4 hover:-translate-y-0.5 transition-all duration-300">
             <%= f.submit %>
         </div>
     <% end %>
