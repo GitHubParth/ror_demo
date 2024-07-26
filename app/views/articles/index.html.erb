@@ -1,6 +1,6 @@
 <div class="h-full w-full bg-[var(--secondary-color)] pt-12 py-16">
     <% if !@articles.empty? %>
-        <h1 class="w-full text-center text-6xl font-bold mb-10 text-[var(--primary-color)]">All Articles</h1>
+        <h1 class="w-full text-center text-6xl font-bold mb-10 text-[var(--primary-color)]">All Articles (<%= @articles.size %>)</h1>
         <p class="absolute text-xs font-medium top-16 right-10 p-1.5 px-2.5 bg-blue-800 text-white rounded">
             <%= link_to  'Add Article', new_article_path() %>
         </p>
