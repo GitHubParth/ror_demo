@@ -1,32 +1,64 @@
-<div class="h-full w-full pt-6 py-14 bg-[var(--secondary-color)] lg:px-16 md:px-8 px-6">
-    <h1 class="w-full text-center text-6xl font-bold my-10 text-[var(--primary-color)]"><%= @user.username %>'s Profile</h1>
-    <div class="w-full flex md:flex-row flex-col items-center justify-center md:gap-6 gap-1">
-        <div class="w-96 h-72 flex items-center justify-center">
-            <% if @user.profile_img.attached? %>
-                <%= image_tag(@user.profile_img, class: "w-60 h-60 rounded-full object-cover object-center") %>
+<div class="h-full w-full pt-6 py-14 bg-[var(--secondary-color)] lg:px-16 md:px-10 px-8">
+    <h1 class="w-full text-center sm:text-6xl text-5xl font-bold md:my-8 sm:my-5 my-2 !mb-6 text-[var(--primary-color)]"><%= @user.username %>'s Profile</h1>
+    <div class="w-full flex flex-col items-center justify-center gap-10">
+        <div class="w-full flex flex-col items-center justify-center">
+            <div class="w-full h-full flex items-center justify-center">
+                <% if @user.profile_img.attached? %>
+                    <%= image_tag(@user.profile_img, class: "sm:!w-60 w-40 sm:h-60 h-40 rounded-full object-cover object-center") %>
+                <% end %>
+            </div>
+            <p class="my-3 font-medium"><%= @user.email %></p>
+            <% if logged_in? && @user == current_user %>
+                <div class="w-full flex items-center justify-center gap-3">
+                    <%= link_to 'Edit', edit_user_path(@user), class: 'text-sm cursor-pointer transition-all duration-300 font-medium p-1 px-2.5 border-2 border-green-600 hover:bg-green-600 hover:text-white text-green-600 rounded' %>
+                    <%= link_to 'Delete', user_path(@user), data: { turbo_method: :delete, turbo_confirm: "Are you sure, you want to delete this article ?" }, class: 'text-sm cursor-pointer transition-all duration-300 font-medium p-1 px-2.5 border-2 border-red-600 hover:bg-red-600 hover:text-white text-red-600 rounded' %>
+                </div>
             <% end %>
         </div>
+        <div class="w-full flex flex-col items-center justify-center gap-6">
+            <h2 class="w-full text-center text-4xl font-bold text-[var(--primary-color)]">Articles by <%= @user.username %></h2>
+            <% if !@user.articles.empty? %>
+                <div class="w-full flex flex-col items-center justify-center gap-5">
+                    <% @articles.each do |article| %>
+                        <div class="w-full max-w-5xl mx-auto flex flex-col items-start justify-center border border-gray-400 rounded-lg overflow-hidden shadow-md">
+                            <p class="h-14 text-xl font-bold px-4 py-2 border-b bg-[var(--light-blue)] border-gray-400 text-[var(--primary-color)] w-full flex items-center justify-center italic">by <%= article.user.username if article.user %></p>
+                            <div class="px-4 py-5 h-full overflow-y-scroll no-scrollbar flex flex-col items-center justify-start gap-2 w-full">
+                                <p class="font-bold text-lg "><%= article.title %></p>
+                                <p class="text-center"><%= article.description %></p>
+                                <% if logged_in? && article.user == current_user %>
+                                    <div class="w-full flex items-center justify-center gap-3 mt-3">
+                                        <%= link_to 'Edit', edit_article_path(article), class: 'text-sm cursor-pointer transition-all duration-300 font-medium p-1 px-2.5 border-2 border-green-600 hover:bg-green-600 hover:text-white text-green-600 rounded' %>
+                                        <%= link_to 'Delete', article_path(article), data: { turbo_method: :delete, turbo_confirm: "Are you sure, you want to delete this article ?" }, class: 'text-sm cursor-pointer transition-all duration-300 font-medium p-1 px-2.5 border-2 border-red-600 hover:bg-red-600 hover:text-white text-red-600 rounded' %>
+                                    </div>
+                                <% end %>
+                            </div>
 
-        <div class="w-full mx-auto flex flex-col items-start justify-center border border-gray-400 rounded-lg overflow-hidden shadow-md">
-            <p class="h-14 text-xl font-bold px-4 py-2 border-b bg-[var(--light-blue)] border-gray-400 text-[var(--primary-color)] w-full flex items-center justify-center italic">by <%= @user.username if @user %></p>
-            <div class="px-4 py-5 h-full overflow-y-scroll no-scrollbar flex flex-col items-center justify-start gap-2 w-full">
-                <p class="font-bold text-lg "><%= @user.username %></p>
-                <p class="text-sm mb-3"><%= @user.email %></p>
-                <div class="w-full flex items-center justify-center gap-3">
-                    <p class="text-sm cursor-pointer transition-all duration-300 font-medium p-1 px-2.5 border-2 border-green-600 hover:bg-green-600 hover:text-white text-green-600 rounded"><%= link_to 'Edit', edit_user_path(@user) %></p>
-                    <p class="text-sm cursor-pointer transition-all duration-300 font-medium p-1 px-2.5 border-2 border-red-600 hover:bg-red-600 hover:text-white text-red-600 rounded"><%= link_to 'Delete', user_path(@user), data: { turbo_method: :delete, turbo_confirm: "Are you sure, you want to delete this user?" } %></p>
+                            <p class="h-14 text-lg px-4 py-2 border-t bg-[var(--light-blue)] border-gray-400 text-[var(--primary-color)] w-full flex items-center justify-center">
+                                <small>Created <span class="font-bold"><%= time_ago_in_words(article.created_at) %></span> ago, 
+                                edited <span class="font-bold"><%= time_ago_in_words(article.updated_at) %></span> ago</small>
+                            </p>
+                        </div>
+                    <% end %>
+                    <% if @user.articles.length > 5 %>
+                        <div class="flickr_pagination my-5">
+                            <%= will_paginate @articles, :container => false %>
+                        </div>
+                    <% end %>
                 </div>
-            </div>
-
-            <p class="h-14 text-lg px-4 py-2 border-t bg-[var(--light-blue)] border-gray-400 text-[var(--primary-color)] w-full flex items-center justify-center">
-                <small>Created <span class="font-bold"><%= time_ago_in_words(@user.created_at) %></span> ago, 
-                edited <span class="font-bold"><%= time_ago_in_words(@user.updated_at) %></span> ago</small>
-            </p>
+            <% else %>
+                <div class="w-full flex flex-col gap-2 justify-center items-center">
+                    <% if logged_in? && @user == current_user %>
+                        <p class="w-full text-center text-lg text-[var(--primary-color)]">Oops! Looks like you haven't wrote any articles yet. Click below to write your first article <%= @user.username %>.</p>
+                    <% else %>
+                        <p class="w-full text-center text-lg text-[var(--primary-color)]">Oops! Looks like <%= @user.username %> haven't wrote any articles yet.</p>
+                    <% end %>
+                </div>
+            <% end %>
+            <% if logged_in? %>
+                <%= link_to new_article_path() do %>
+                    <p class="text-blue-600 font-medium px-4 py-1 bg-transparent border-2 border-blue-600 cursor-pointer rounded-md transition-all duration-300 hover:text-white hover:bg-blue-600">Add Article</p>
+                <% end %>
+            <% end %>
         </div>
-    </div>
-
-    <div class="w-full flex items-center justify-center gap-2 my-6">
-        <p class="cursor-pointer font-medium px-4 transition-all duration-300 hover:text-white hover:bg-blue-600 py-1 bg-transparent text-blue-600 border-2 border-blue-600 rounded-md"><%= link_to "Add New User", signup_path() %></p>
-        <p class="cursor-pointer font-medium px-4 transition-all duration-300 hover:text-white hover:bg-blue-600 py-1 bg-transparent text-blue-600 border-2 border-blue-600 rounded-md"><%= link_to "Back to Users", users_path %></p>
     </div>
 </div>

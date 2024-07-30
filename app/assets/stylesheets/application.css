@@ -14,14 +14,59 @@
  *= require_self
  */
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-   --primary-color: #1D3557;
-   --secondary-color: #F1FAEE;
-   --mid-blue: #457B9D;
-   --light-blue: #A8DADC;
-   --primary-red: #E63946;
+	--primary-color: #1d3557;
+	--secondary-color: #f1faee;
+	--mid-blue: #457b9d;
+	--light-blue: #a8dadc;
+	--primary-red: #e63946;
 }
 
 .no-scrollbar::-webkit-scrollbar {
-    display: none;
+	display: none;
+}
+
+/* Pagination Style */
+.flickr_pagination {
+	text-align: center;
+	cursor: default;
+	user-select: none;
+}
+.flickr_pagination a,
+.flickr_pagination span,
+.flickr_pagination em {
+	padding: 0.5rem 1rem;
+	border-radius: 5px;
+}
+.flickr_pagination .disabled {
+	color: #aaa;
+	cursor: not-allowed;
+}
+.flickr_pagination .current {
+	font-style: normal;
+	font-weight: bold;
+	color: white;
+	background-color: var(--primary-color);
+	border: none;
+}
+.flickr_pagination a {
+	border: 1px solid var(--light-blue);
+	color: var(--primary-color);
+	text-decoration: none;
+	transition: all .1s ease-in-out;
+}
+.flickr_pagination a:hover,
+.flickr_pagination a:focus {
+	border-color: var(--mid-blue);
+	background: var(--mid-blue);
+	color: white;
+}
+.flickr_pagination .previous_page,
+.flickr_pagination .next_page {
+	border: 1px solid var(--light-blue);
+	border-radius: 5px;
 }

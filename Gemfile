@@ -16,6 +16,8 @@ gem "puma", ">= 5.0"
 
 gem 'pry-rails'
 
+gem 'will_paginate', '~> 4.0.1'
+
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 
@@ -67,3 +69,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "tailwindcss-rails", "~> 2.6"

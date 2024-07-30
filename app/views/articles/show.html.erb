@@ -2,14 +2,16 @@
     <h1 class="w-full text-center text-6xl font-bold my-10 text-[var(--primary-color)]">Show Article Details</h1>
 
     <div class="w-full max-w-5xl mx-auto flex flex-col items-start justify-center border border-gray-400 rounded-lg overflow-hidden shadow-md">
-        <p class="h-14 text-xl font-bold px-4 py-2 border-b bg-[var(--light-blue)] border-gray-400 text-[var(--primary-color)] w-full flex items-center justify-center italic">by <%= @article.user.username if @article.user %></p>
+        <p class="h-14 text-xl font-bold px-4 py-2 border-b bg-[var(--light-blue)] border-gray-400 text-[var(--primary-color)] w-full flex gap-1.5 items-center justify-center italic">by <%= link_to user_path(@article.user) do %><%= @article.user.username if @article.user %> <% end %></p>
         <div class="px-4 py-5 h-full overflow-y-scroll no-scrollbar flex flex-col items-center justify-start gap-2 w-full">
             <p class="font-bold text-lg "><%= @article.title %></p>
             <p class="text-sm mb-3"><%= @article.description %></p>
-            <div class="w-full flex items-center justify-center gap-3">
-                <p class="text-sm cursor-pointer transition-all duration-300 font-medium p-1 px-2.5 border-2 border-green-600 hover:bg-green-600 hover:text-white text-green-600 rounded"><%= link_to 'Edit', edit_article_path(@article) %></p>
-                <p class="text-sm cursor-pointer transition-all duration-300 font-medium p-1 px-2.5 border-2 border-red-600 hover:bg-red-600 hover:text-white text-red-600 rounded"><%= link_to 'Delete', article_path(@article), data: { turbo_method: :delete, turbo_confirm: "Are you sure, you want to delete this article ?" } %></p>
-            </div>
+            <% if logged_in? && @article.user == current_user %>
+                <div class="w-full flex items-center justify-center gap-3">
+                    <p class="text-sm cursor-pointer transition-all duration-300 font-medium p-1 px-2.5 border-2 border-green-600 hover:bg-green-600 hover:text-white text-green-600 rounded"><%= link_to 'Edit', edit_article_path(@article) %></p>
+                    <p class="text-sm cursor-pointer transition-all duration-300 font-medium p-1 px-2.5 border-2 border-red-600 hover:bg-red-600 hover:text-white text-red-600 rounded"><%= link_to 'Delete', article_path(@article), data: { turbo_method: :delete, turbo_confirm: "Are you sure, you want to delete this article ?" } %></p>
+                </div>
+            <% end %>
         </div>
 
         <p class="h-14 text-lg px-4 py-2 border-t bg-[var(--light-blue)] border-gray-400 text-[var(--primary-color)] w-full flex items-center justify-center">
@@ -19,7 +21,9 @@
     </div>
 
     <div class="w-full flex items-center justify-center gap-2 my-6">
-        <p class="cursor-pointer font-medium px-4 transition-all duration-300 hover:text-white hover:bg-blue-600 py-1 bg-transparent text-blue-600 border-2 border-blue-600 rounded-md"><%= link_to "Add New Article", new_article_path() %></p>
+        <% if logged_in? %>
+            <p class="cursor-pointer font-medium px-4 transition-all duration-300 hover:text-white hover:bg-blue-600 py-1 bg-transparent text-blue-600 border-2 border-blue-600 rounded-md"><%= link_to "Add New Article", new_article_path() %></p>
+        <% end %>
         <p class="cursor-pointer font-medium px-4 transition-all duration-300 hover:text-white hover:bg-blue-600 py-1 bg-transparent text-blue-600 border-2 border-blue-600 rounded-md"><%= link_to "Back to Articles", articles_path %></p>
     </div>
 </div>
