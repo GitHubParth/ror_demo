@@ -21,7 +21,7 @@
             <%= link_to "Already have an account?", login_path, class: 'text-[var(--light-blue)] font-mono mb-1 text-sm underline' %>
         </div>
         <div class="border cursor-pointer mx-auto bg-[var(--secondary-color)] text-lg text-[var(--primary-color)] font-medium w-fit rounded-lg font-medium p-2 px-4 hover:-translate-y-0.5 transition-all duration-300">
-            <%= f.submit "Sign Up" %>
+            <%= f.submit (@user.new_record? ? "Sign Up" : "Update") %>
         </div>
     <% end %>
 </div>
