@@ -2,11 +2,11 @@
     <%= form_with model: @article, local: true, class: 'w-full' do |f| %>
         <div class="h-auto mb-6 w-full relative">
             <p class="text-lg text-[var(--light-blue)] font-mono mb-1"><%= f.label :title, "Title" %><br/></p>
-            <%= f.text_field :title, placeholder: "Enter Title", class: "border border-[var(--light-blue)] font-light text-lg rounded-lg px-3 bg-transparent !outline-none text-white tracking-wide w-full h-12" %>
+            <%= f.text_field :title, placeholder: "Enter Title", class: "border !border-[var(--light-blue)] font-light text-lg rounded-lg px-3 bg-transparent !outline-none text-white tracking-wide w-full h-12" %>
             </div>
             <div class="h-auto mb-6 w-full relative">
             <p class="text-lg text-[var(--light-blue)] font-mono mb-1"><%= f.label :description, "Description" %><br/></p>
-            <%= f.text_area :description, placeholder: "Enter Description", rows: 5, class: "border border-[var(--light-blue)] font-light text-lg rounded-lg px-3 py-2 bg-transparent !outline-none text-white tracking-wide w-full" %>
+            <%= f.text_area :description, placeholder: "Enter Description", rows: 5, class: "border !border-[var(--light-blue)] font-light text-lg rounded-lg px-3 py-2 bg-transparent !outline-none text-white tracking-wide w-full" %>
         </div>
         <div class="border cursor-pointer mx-auto bg-[var(--secondary-color)] text-lg text-[var(--primary-color)] font-medium w-fit rounded-lg font-medium p-2 px-4 hover:-translate-y-0.5 transition-all duration-300">
             <%= f.submit %>

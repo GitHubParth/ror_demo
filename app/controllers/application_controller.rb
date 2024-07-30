@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
 
+    add_flash_types :info, :warning
     helper_method :current_user, :logged_in?
     
     def current_user
@@ -12,7 +13,7 @@ class ApplicationController < ActionController::Base
 
     def require_user
         if !logged_in?
-            flash[:alert] = "Please login to continue"
+            flash[:info] = "Please login to continue"
             redirect_to login_path
         end
     end

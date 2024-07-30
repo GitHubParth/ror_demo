@@ -1,9 +1,9 @@
 <div class="h-full w-full bg-[var(--secondary-color)] pt-12 py-16">
     <% if !@users.empty? %>
         <h1 class="w-full text-center text-6xl font-bold mb-10 text-[var(--primary-color)]">All Users</h1>
-        <p class="absolute text-xs font-medium top-16 right-10 p-1.5 px-2.5 bg-blue-800 text-white rounded">
-            <%= link_to  'Add User', signup_path() %>
-        </p>
+        <% if logged_in? && current_user.role != "user" %>
+            <%= link_to 'Add User', signup_path(), class: "absolute text-xs font-medium top-16 right-10 p-1.5 px-2.5 bg-blue-800 text-white rounded" %>
+        <% end %>
     <% end %>
 
     <div class="px-12 w-full flex flex-col items-center justify-center gap-8">
