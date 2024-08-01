@@ -18,10 +18,9 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.new(whitelist_params.except(:categories_list))
+    binding.pry
+    @article = Article.new(whitelist_params)
     @article.user = current_user
-    @categories = Category.where(name: whitelist_params[:categories_list])
-    @article.categories << @categories
     if @article.save
       flash[:notice] = "Article created successfully"
       redirect_to @article
@@ -31,9 +30,7 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    @categories = Category.where(name: whitelist_params[:categories_list])
-    @article.categories << @categories
-    if @article.update(whitelist_params.except(:categories_list))
+    if @article.update(whitelist_params)
       flash[:notice] = "Article was updated successfully"
       redirect_to @article
     else
@@ -53,7 +50,7 @@ class ArticlesController < ApplicationController
   end
 
   def whitelist_params
-    params.require(:article).permit(:title, :description, :categories_list => [])
+    params.require(:article).permit(:title, :description, :category_ids => [])
   end
 
   def require_same_user
