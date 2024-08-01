@@ -12,7 +12,6 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
-    @categories = Category.all
   end
 
   def edit
@@ -32,7 +31,9 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    if @article.update(whitelist_params)
+    @categories = Category.where(name: whitelist_params[:categories_list])
+    @article.categories << @categories
+    if @article.update(whitelist_params.except(:categories_list))
       flash[:notice] = "Article was updated successfully"
       redirect_to @article
     else
@@ -42,6 +43,7 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article.destroy
+    redirect_to articles_path
   end
 
   private
@@ -51,11 +53,11 @@ class ArticlesController < ApplicationController
   end
 
   def whitelist_params
-    params.require(:article).permit(:title, :description, categories_list: [])
+    params.require(:article).permit(:title, :description, :categories_list => [])
   end
 
   def require_same_user
-    if current_user != @article.user && current_user.role != "admin"
+    if current_user != @article.user && !current_user.role.include?('admin')
       flash[:warning] = "You can only edit of delete your own articles."
       redirect_to @article
     end
