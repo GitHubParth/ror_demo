@@ -1,11 +1,13 @@
 class ArticlesController < ApplicationController
   before_action :find_article, only: [:show, :edit, :update, :destroy]
+  before_action :require_user, except: [:show, :index]
+  before_action :require_same_user, only: [:edit, :update, :destroy]
 
   def show
   end
 
   def index
-    @articles = Article.all
+    @articles = Article.paginate(:page => params[:page], :per_page => 5)
   end
 
   def new
@@ -16,8 +18,10 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.new(whitelist_params)
-    @article.user = User.first
+    @article = Article.new(whitelist_params.except(:categories_list))
+    @article.user = current_user
+    @categories = Category.where(name: whitelist_params[:categories_list])
+    @article.categories << @categories
     if @article.save
       flash[:notice] = "Article created successfully"
       redirect_to @article
@@ -27,7 +31,9 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    if @article.update(whitelist_params)
+    @categories = Category.where(name: whitelist_params[:categories_list])
+    @article.categories << @categories
+    if @article.update(whitelist_params.except(:categories_list))
       flash[:notice] = "Article was updated successfully"
       redirect_to @article
     else
@@ -47,7 +53,13 @@ class ArticlesController < ApplicationController
   end
 
   def whitelist_params
-    params.require(:article).permit(:title, :description)
+    params.require(:article).permit(:title, :description, :categories_list => [])
   end
 
+  def require_same_user
+    if current_user != @article.user && !current_user.role.include?('admin')
+      flash[:warning] = "You can only edit of delete your own articles."
+      redirect_to @article
+    end
+  end
 end

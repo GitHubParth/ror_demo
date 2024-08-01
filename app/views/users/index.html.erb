@@ -1,12 +1,12 @@
 <div class="h-full w-full bg-[var(--secondary-color)] pt-12 py-16">
     <% if !@users.empty? %>
-        <h1 class="w-full text-center text-6xl font-bold mb-10 text-[var(--primary-color)]">All Users (<%= @users.length %>)</h1>
-        <p class="absolute text-xs font-medium top-16 right-10 p-1.5 px-2.5 bg-blue-800 text-white rounded">
-            <%= link_to  'Add User', signup_path() %>
-        </p>
+        <h1 class="w-full text-center text-6xl font-bold mb-10 text-[var(--primary-color)]">All Users</h1>
+        <% if logged_in? && current_user.role != "user" %>
+            <%= link_to 'Add User', signup_path(), class: "absolute text-xs font-medium top-16 right-10 p-1.5 px-2.5 bg-blue-800 text-white rounded" %>
+        <% end %>
     <% end %>
 
-    <div class="mx-auto max-w-5xl flex flex-col items-center justify-center gap-8">
+    <div class="px-12 w-full flex flex-col items-center justify-center gap-8">
         <% if @users.empty? %>
             <div class="w-full h-full flex flex-col items-center justify-center">
                 <div class="flex h-full w-full items-center justify-center gap-10">
@@ -18,53 +18,46 @@
                 </div>
             </div>
         <% end %>
-        <% @users.each do |user| %>
-            <div class="w-full mx-auto flex flex-col items-start justify-center border border-gray-400 rounded-lg overflow-hidden shadow-md">
-                <p class="h-14 text-xl font-bold px-4 py-2 bg-[var(--light-blue)] border-b border-gray-400 text-[var(--primary-color)] w-full flex items-center justify-center italic">by <%= user.username if user %></p>
-                <div class="px-4 py-5 h-full overflow-y-scroll no-scrollbar flex flex-col items-center justify-start gap-2 w-full">
-                    <p class="font-bold text-lg "><%= user.username %></p>
-                    <p class="text-sm mb-3"> <%= user.email %></p>
-                    <div class="flex flex-col w-full max-w-lg mx-auto">
-                        <% if !user.articles.empty? %>
-                            <p class="w-full max-w-lg text-lg font-bold">Articles by <%= user.username %></p>
-                            <% user.articles.each_with_index do |article, idx|  %>
-                                <div class="w-full flex items-center justify-between gap-3">
-                                    <p><%= idx+1 %>. <%= article.title %></p>
-                                    <div class="flex items-center justify-center gap-2">
-                                        <%= link_to article_path(article) do %>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-5 h-5 text-yellow-500" viewBox="0 0 16 16">
-                                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
-                                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
-                                            </svg>
-                                        <% end %>
-                                        <%= link_to edit_article_path(article) do %>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-4 h-4 text-green-500" viewBox="0 0 16 16">
-                                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                                            </svg>
-                                        <% end %>
-                                        <%= link_to article_path(article), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this article >" } do %>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-4 h-4 text-red-500" viewBox="0 0 16 16">
-                                                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                                            </svg>
-                                        <% end %>                                        
-                                    </div>
-                                </div>
-                            <% end
-                        end %>
+        <div class="w-full grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-4">
+            <% @users.each do |user| %>
+                <div class="w-full h-full flex flex-col items-center justify-center rounded-xl overflow-hidden">
+                    <div class="w-full relative">
+                        <%= image_tag user.profile_img, class: "w-full lg:h-64 md:h-52 h-60 object-cover object-center" %>
+                        <div class="w-full h-full bg-gradient-to-t from-gray-800 to-transparent absolute top-0 left-0"></div>
+                        <h2 class="w-full absolute text-center bottom-2 left-0 text-white font-medium text-lg"><%= user.username %></h2>
                     </div>
-                    <div class="w-full flex items-center justify-center gap-3">
-                        <p class="text-sm cursor-pointer transition-all duration-300 font-medium p-1 px-2.5 border-2 border-yellow-500 hover:bg-yellow-500 hover:text-white text-yellow-500 rounded"><%= link_to 'View User', user_path(user) %></p>
-                        <p class="text-sm cursor-pointer transition-all duration-300 font-medium p-1 px-2.5 border-2 border-green-600 hover:bg-green-600 hover:text-white text-green-600 rounded"><%= link_to 'Edit User', edit_user_path(user) %></p>
-                        <p class="text-sm cursor-pointer transition-all duration-300 font-medium p-1 px-2.5 border-2 border-red-600 hover:bg-red-600 hover:text-white text-red-600 rounded"><%= link_to 'Delete User', user_path(user), data: { turbo_method: :delete, turbo_confirm: "Are you sure, you want to delete this user ?" } %></p>
+                    <div class="w-full flex items-center justify-center bg-[var(--primary-color)]">
+                        <%= link_to user_path(user), class: 'w-full py-3 hover:scale-125 transition-all' do %>
+                            <p class="w-full flex items-center justify-center cursor-pointer transition-all duration-300 p-1 px-2.5 text-yellow-500 rounded">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-5 h-5" viewBox="0 0 16 16">
+                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                                </svg>
+                            </p>
+                        <% end %>
+                        <% if logged_in? && (user == current_user || current_user.role.include?("admin")) %>
+                            <%= link_to edit_user_path(user), class: 'w-full py-3 hover:scale-125 transition-all' do %>
+                                <p class="w-full flex items-center justify-center cursor-pointer transition-all duration-300 p-1 px-2.5 text-green-600 rounded">
+                                    <svg class="w-[22px] h-[22px]" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.2038 10.796L18.9998 9C19.545 8.45475 19.8176 8.18213 19.9634 7.88803C20.2407 7.32848 20.2407 6.67153 19.9634 6.11197C19.8176 5.81788 19.545 5.54525 18.9998 5C18.4545 4.45475 18.1819 4.18213 17.8878 4.03639C17.3282 3.75911 16.6713 3.75911 16.1117 4.03639C15.8176 4.18213 15.545 4.45475 14.9998 5L13.1811 6.81866C14.145 8.46926 15.5311 9.84482 17.2038 10.796ZM11.7267 8.27312L4.85615 15.1436C4.43109 15.5687 4.21856 15.7812 4.07883 16.0423C3.93909 16.3034 3.88015 16.5981 3.76226 17.1876L3.14686 20.2646C3.08034 20.5972 3.04708 20.7635 3.14168 20.8581C3.23629 20.9527 3.4026 20.9194 3.73521 20.8529L6.81219 20.2375C7.40164 20.1196 7.69637 20.0607 7.95746 19.9209C8.21856 19.7812 8.43109 19.5687 8.85615 19.1436L15.7456 12.2542C14.1239 11.2386 12.7522 9.87628 11.7267 8.27312Z" fill="currentColor"/>
+                                    </svg>
+                                </p>
+                            <% end %>
+                            <%= link_to user_path(user), class: 'w-full py-3 hover:scale-125 transition-all', data: { turbo_method: :delete, turbo_confirm: "Are you sure, you want to delete this user ?" } do %>
+                                <p class="w-full flex items-center justify-center cursor-pointer transition-all duration-300 p-1 px-2.5 text-red-600 rounded">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
+                                        <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                                    </svg>
+                                </p>
+                            <% end %>
+                        <% end %>
                     </div>
                 </div>
-                <p class="h-14 text-lg px-4 py-2 bg-[var(--light-blue)] border-t border-gray-400 text-[var(--primary-color)] w-full flex items-center justify-center">
-                    <small>Created <span class="font-bold"><%= time_ago_in_words(user.created_at) %></span> ago, 
-                    edited <span class="font-bold"><%= time_ago_in_words(user.updated_at) %></span> ago</small>
-                </p>
-            </div>
-        <% end %>
+            <% end %>
+        </div>
         <button class="bg-[var(--primary-color)] text-[var(--secondary-color)] px-6 py-2 rounded-lg" onclick="window.scrollTo({ top: 0, left: 0, behavior: 'smooth'})">Back To Top</button>
+        <div class="flickr_pagination">
+            <%= will_paginate @users, :container => false %>
+        </div>
     </div>
 </div>

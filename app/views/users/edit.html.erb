@@ -2,7 +2,7 @@
     <h1 class="w-full text-center text-6xl font-bold my-10 text-[var(--primary-color)]">Edit the User</h1>
 
     <%= render 'shared/errors', obj: @user %>
-    <%= render 'edit_user_form' %> 
+    <%= render 'form' %> 
 
     <div class="w-full flex items-center justify-center gap-2 my-6">
         <p class="text-xs cursor-pointer font-medium px-2 py-1 bg-blue-600 text-white rounded"><%= link_to "Add New User", signup_path() %></p>
