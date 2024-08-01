@@ -12,14 +12,17 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
+    @categories = Category.all
   end
 
   def edit
   end
 
   def create
-    @article = Article.new(whitelist_params)
+    @article = Article.new(whitelist_params.except(:categories_list))
     @article.user = current_user
+    @categories = Category.where(name: whitelist_params[:categories_list])
+    @article.categories << @categories
     if @article.save
       flash[:notice] = "Article created successfully"
       redirect_to @article
@@ -48,7 +51,7 @@ class ArticlesController < ApplicationController
   end
 
   def whitelist_params
-    params.require(:article).permit(:title, :description)
+    params.require(:article).permit(:title, :description, categories_list: [])
   end
 
   def require_same_user

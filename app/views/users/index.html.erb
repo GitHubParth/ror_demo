@@ -35,7 +35,7 @@
                                 </svg>
                             </p>
                         <% end %>
-                        <% if logged_in? && (user == current_user || current_user.role == "admin") %>
+                        <% if logged_in? && (user == current_user || current_user.role.include?("admin")) %>
                             <%= link_to edit_user_path(user), class: 'w-full py-3 hover:scale-125 transition-all' do %>
                                 <p class="w-full flex items-center justify-center cursor-pointer transition-all duration-300 p-1 px-2.5 text-green-600 rounded">
                                     <svg class="w-[22px] h-[22px]" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -57,7 +57,7 @@
         </div>
         <button class="bg-[var(--primary-color)] text-[var(--secondary-color)] px-6 py-2 rounded-lg" onclick="window.scrollTo({ top: 0, left: 0, behavior: 'smooth'})">Back To Top</button>
         <div class="flickr_pagination">
-            <%= will_paginate @articles, :container => false %>
+            <%= will_paginate @users, :container => false %>
         </div>
     </div>
 </div>

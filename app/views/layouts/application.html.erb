@@ -12,46 +12,61 @@
 
   <body class="max-w-screen overflow-x-hidden">
 
-    <header class="shadow-md shadow-gray-700 fixed top-0 left-0 h-20 bg-[var(--primary-color)] w-full min-w-screen !z-50 flex items-center justify-between px-12 text-[var(--secondary-color)]">
+    <header class="shadow-md shadow-gray-700 fixed top-0 left-0 h-20 bg-[var(--primary-color)] w-full min-w-screen !z-50 flex items-center justify-between lg:px-12 md:px-10 sm:px-8 px-5 text-[var(--secondary-color)]">
       <%= link_to root_path do %>
         <div class="flex items-center justify-center gap-3">
-          <img src="https://cdn.pixabay.com/photo/2017/03/16/21/18/logo-2150297_640.png" alt="Logo" class="w-12 h-12 rounded-lg">
-          <h1 class="text-4xl font-bold">BlogSpot</h1>
+          <img src="https://cdn.pixabay.com/photo/2017/03/16/21/18/logo-2150297_640.png" alt="Logo" class="lg:w-12 w-10 lg:h-12 h-10 rounded-lg">
+          <h1 class="md:text-4xl text-2xl font-bold">BlogSpot</h1>
         </div>
       <% end %>
-      <nav class="md:flex items-center justify-center gap-6 text-lg h-full relative hidden">
-        <a class="h-full px-1 hover:text-[var(--primary-red)] hover:scale-110 transition-all before:transition-all before:duration-300 flex items-center justify-center !outline-none font-medium relative before:w-0 before:h-1 before:absolute before:bottom-1 before:left-1/2 hover:before:left-0 hover:before:w-full before:bg-red-700" href=<%= root_path %>>Home</a>
-        <a class="h-full px-1 hover:text-[var(--primary-red)] hover:scale-110 transition-all before:transition-all before:duration-300 flex items-center justify-center !outline-none font-medium relative before:w-0 before:h-1 before:absolute before:bottom-1 before:left-1/2 hover:before:left-0 hover:before:w-full before:bg-red-700" href=<%= users_path %>>Users</a>
-        <a class="h-full px-1 hover:text-[var(--primary-red)] hover:scale-110 transition-all before:transition-all before:duration-300 flex items-center justify-center !outline-none font-medium relative before:w-0 before:h-1 before:absolute before:bottom-1 before:left-1/2 hover:before:left-0 hover:before:w-full before:bg-red-700" href=<%= articles_path %>>Articles</a>
-        <a class="h-full px-1 hover:text-[var(--primary-red)] hover:scale-110 transition-all before:transition-all before:duration-300 flex items-center justify-center !outline-none font-medium relative before:w-0 before:h-1 before:absolute before:bottom-1 before:left-1/2 hover:before:left-0 hover:before:w-full before:bg-red-700" href=<%= about_path %>>About Us</a>
-        <a class="h-full px-1 hover:text-[var(--primary-red)] hover:scale-110 transition-all before:transition-all before:duration-300 flex items-center justify-center !outline-none font-medium relative before:w-0 before:h-1 before:absolute before:bottom-1 before:left-1/2 hover:before:left-0 hover:before:w-full before:bg-red-700" href=<%= contact_path %>>Contact Us</a>
-        <% if logged_in? %>
-          <%= image_tag current_user.profile_img, class: 'w-10 h-10 rounded-full object-cover object-center cursor-pointer', onclick: 'toggleProfile()' %>
-          <div class="absolute origin-top-right transition-all duration-300 overflow-hidden w-40 scale-0 flex flex-col items-center justify-center -bottom-20 -right-0 z-50 border border-[var(--primary-color)] bg-[rgba(255,255,255,0.4)] backdrop-blur-lg rounded-lg" id="profile_dropdown">
-            <%= link_to user_path(current_user), class: 'w-full text-center h-full p-2 !outline-none' do %>
-              <p class="w-full h-full flex items-center justify-center gap-2 text-black hover:text-[var(--primary-red)] transition-all">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-4 h-5 pt-0.5" viewBox="0 0 16 16">
-                  <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
-                  <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
-              </svg> Settings
-              </p>
-            <% end %>
-            <hr class="w-full border-t border-[var(--primary-color)]"></hr>
-            <%= link_to logout_path, data: { turbo_method: :delete }, class: 'w-full text-center h-full pt-1.5 pb-2 px-2 !outline-none' do %>
-              <p class="w-full h-full flex items-center justify-center gap-2 text-black hover:text-[var(--primary-red)] transition-all">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-4 h-4" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"/>
-                  <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z"/>
-                </svg> Logout
-              </p>
-              
-            <% end %>
-          </div>
-        <% else %>
-          <a class="h-full px-1 hover:text-[var(--primary-red)] hover:scale-110 transition-all before:transition-all before:duration-300 flex items-center justify-center !outline-none font-medium relative before:w-0 before:h-1 before:absolute before:bottom-1 before:left-1/2 hover:before:left-0 hover:before:w-full before:bg-red-700" href=<%= login_path %>>Login</a>
-          <a class="h-full px-1 hover:text-[var(--primary-red)] hover:scale-110 transition-all before:transition-all before:duration-300 flex items-center justify-center !outline-none font-medium relative before:w-0 before:h-1 before:absolute before:bottom-1 before:left-1/2 hover:before:left-0 hover:before:w-full before:bg-red-700" href=<%= signup_path %>>Sign Up</a>
-        <% end %>
-      </nav>
+      <div class="flex items-center justify-center gap-6 text-lg h-full">
+        <div id="navbarOverlay" class="w-full h-full bg-[rgba(0,0,0,0.5)] hidden backdrop-blur-lg fixed top-20 left-0 z-30"></div>
+        <nav id="navbar" class="lg:relative fixed lg:top-0 top-20 right-0 lg:w-auto w-0 lg:py-0 py-10 transition-width duration-300 z-50 lg:overflow-y-hidden overflow-y-scroll overflow-hidden flex lg:flex-row flex-col items-center justify-center gap-6 h-full bg-[var(--primary-color)]">
+          <a class="lg:h-full h-auto whitespace-nowrap lg:w-auto w-full px-1 hover:text-[var(--primary-red)] hover:scale-110 transition-all before:transition-all before:duration-300 flex items-center justify-center !outline-none font-medium relative before:w-0 before:h-1 before:absolute before:bottom-1 before:left-1/2 hover:before:left-0 hover:before:w-full before:bg-red-700" href=<%= root_path %>>Home</a>
+          <a class="lg:h-full h-auto whitespace-nowrap lg:w-auto w-full px-1 hover:text-[var(--primary-red)] hover:scale-110 transition-all before:transition-all before:duration-300 flex items-center justify-center !outline-none font-medium relative before:w-0 before:h-1 before:absolute before:bottom-1 before:left-1/2 hover:before:left-0 hover:before:w-full before:bg-red-700" href=<%= users_path %>>Users</a>
+          <a class="lg:h-full h-auto whitespace-nowrap lg:w-auto w-full px-1 hover:text-[var(--primary-red)] hover:scale-110 transition-all before:transition-all before:duration-300 flex items-center justify-center !outline-none font-medium relative before:w-0 before:h-1 before:absolute before:bottom-1 before:left-1/2 hover:before:left-0 hover:before:w-full before:bg-red-700" href=<%= articles_path %>>Articles</a>
+          <a class="lg:h-full h-auto whitespace-nowrap lg:w-auto w-full px-1 hover:text-[var(--primary-red)] hover:scale-110 transition-all before:transition-all before:duration-300 flex items-center justify-center !outline-none font-medium relative before:w-0 before:h-1 before:absolute before:bottom-1 before:left-1/2 hover:before:left-0 hover:before:w-full before:bg-red-700" href=<%= categories_path %>>Categories</a>
+          <a class="lg:h-full h-auto whitespace-nowrap lg:w-auto w-full px-1 hover:text-[var(--primary-red)] hover:scale-110 transition-all before:transition-all before:duration-300 flex items-center justify-center !outline-none font-medium relative before:w-0 before:h-1 before:absolute before:bottom-1 before:left-1/2 hover:before:left-0 hover:before:w-full before:bg-red-700" href=<%= about_path %>>About Us</a>
+          <a class="lg:h-full h-auto whitespace-nowrap lg:w-auto w-full px-1 hover:text-[var(--primary-red)] hover:scale-110 transition-all before:transition-all before:duration-300 flex items-center justify-center !outline-none font-medium relative before:w-0 before:h-1 before:absolute before:bottom-1 before:left-1/2 hover:before:left-0 hover:before:w-full before:bg-red-700" href=<%= contact_path %>>Contact Us</a>
+        </nav>
+        <div class="flex items-center justify-center gap-6 h-full">
+          <% if logged_in? %>
+            <%= image_tag current_user.profile_img, class: 'w-10 h-10 rounded-full object-cover object-center cursor-pointer', onclick: 'toggleProfile()' %>
+            <div class="absolute md:origin-top-right origin-top transition-all duration-300 overflow-hidden w-40 scale-0 flex flex-col items-center justify-center -bottom-20 lg:right-5 sm:right-20 right-8 border border-[var(--primary-color)] z-50 bg-[rgba(255,255,255,0.2)] backdrop-blur-lg rounded-lg" id="profile_dropdown">
+              <%= link_to user_path(current_user), class: 'w-full h-full p-2 px-4 !outline-none' do %>
+                <p class="w-full h-full flex items-center justify-start gap-2 text-black hover:text-[var(--primary-red)] transition-all">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-4 h-5 pt-0.5" viewBox="0 0 16 16">
+                    <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
+                    <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
+                </svg> Settings
+                </p>
+              <% end %>
+              <hr class="w-full border-t border-[var(--primary-color)]"></hr>
+              <%= link_to logout_path, data: { turbo_method: :delete }, class: 'w-full h-full pt-1.5 pb-2 px-4 !outline-none' do %>
+                <p class="w-full h-full flex items-center justify-start gap-2 text-black hover:text-[var(--primary-red)] transition-all">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-4 h-4" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"/>
+                    <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z"/>
+                  </svg> Logout
+                </p>
+              <% end %>
+            </div>
+          <% else %>
+            <a class="h-full px-1 hover:text-[var(--primary-red)] hover:scale-110 transition-all before:transition-all before:duration-300 flex items-center justify-center !outline-none font-medium relative before:w-0 before:h-1 before:absolute before:bottom-1 before:left-1/2 hover:before:left-0 hover:before:w-full before:bg-red-700" href=<%= login_path %>>Login</a>
+            <a class="h-full px-1 hover:text-[var(--primary-red)] hover:scale-110 transition-all before:transition-all before:duration-300 flex items-center justify-center !outline-none font-medium relative before:w-0 before:h-1 before:absolute before:bottom-1 before:left-1/2 hover:before:left-0 hover:before:w-full before:bg-red-700" href=<%= signup_path %>>Sign Up</a>
+          <% end %>
+        </div>
+        <button id="openNavbarBtn" class="lg:hidden block" onclick="openNavbar()">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-7 h-7" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+          </svg>
+        </button>
+        <button id="closeNavbarBtn" class="hidden" onclick="closeNavbar()">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-7 h-7 p-1" viewBox="0 0 16 16">
+            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+          </svg>
+        </button>
+      </div>
     </header>
 
     <%= render 'layouts/messages' %>
@@ -59,7 +74,7 @@
       <%= yield %>
     </div>
 
-    <footer class="shadow-[0_-4px_6px_-1px] shadow-gray-700 w-full min-w-screen h-full bg-[var(--primary-color)] p-12 !z-50 relative">
+    <footer class="shadow-[0_-4px_6px_-1px] shadow-gray-700 w-full min-w-screen h-full bg-[var(--primary-color)] p-12 !z-40 relative">
       <div class="mx-auto w-full">
         <div class="md:flex md:justify-between">
           <div class="mb-6 md:mb-0">
@@ -152,11 +167,50 @@
 
     </footer>
 
-    <script>
+    <script>   
+        
         function toggleProfile(){
           let profileDiv = document.getElementById('profile_dropdown');
-          profileDiv.classList.toggle('scale-0').toggle('scale-100')
+          profileDiv.classList.toggle('scale-0')
         }
+
+        function openNavbar() {
+          let navbar = document.getElementById('navbar')
+          let navbarOverlay = document.getElementById('navbarOverlay')
+          let openNavbarBtn = document.getElementById('openNavbarBtn')
+          let closeNavbarBtn = document.getElementById('closeNavbarBtn')
+
+          navbar.classList.add('md:!w-80', '!w-60')
+          navbar.classList.remove('w-0')
+          openNavbarBtn.classList.remove('block')
+          openNavbarBtn.classList.add('hidden')
+          closeNavbarBtn.classList.add('block')
+          closeNavbarBtn.classList.remove('hidden')
+          navbarOverlay.classList.add('!block')
+          document.body.classList.add('overflow-hidden')
+        }
+        function closeNavbar() {
+          let navbar = document.getElementById('navbar')
+          let navbarOverlay = document.getElementById('navbarOverlay')
+          let openNavbarBtn = document.getElementById('openNavbarBtn')
+          let closeNavbarBtn = document.getElementById('closeNavbarBtn')
+
+          navbar.classList.remove('md:!w-80', '!w-60')
+          navbar.classList.add('w-0')
+          openNavbarBtn.classList.add('block')
+          openNavbarBtn.classList.remove('hidden')
+          closeNavbarBtn.classList.remove('block')
+          closeNavbarBtn.classList.add('hidden')
+          navbarOverlay.classList.remove('!block')
+          document.body.classList.remove('overflow-hidden')
+        }
+
+        function open_category_dropdown() {
+          let category_dropdown = document.getElementById('category_dropdown')
+          category_dropdown.classList.toggle('h-0')
+          category_dropdown.classList.toggle('border')
+        }
+        
     </script>
     
   </body>

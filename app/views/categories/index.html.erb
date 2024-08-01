@@ -1,0 +1,35 @@
+<div class="h-full w-full bg-[var(--secondary-color)] pt-12 py-16">
+    <% if !@categories.empty? %>
+        <h1 class="w-full text-center text-6xl font-bold mb-10 text-[var(--primary-color)]">All Categories</h1>
+        <p class="absolute text-xs font-medium top-16 right-10 p-1.5 px-2.5 bg-blue-800 text-white rounded">
+        <%= link_to  'Add Category', new_category_path() %>
+        </p>
+    <% end %>
+
+    <div class="mx-auto max-w-5xl flex flex-col items-center justify-center gap-8">
+        <% if @categories.empty? %>
+            <div class="w-full h-full flex flex-col items-center justify-center">
+                <div class="flex h-full w-full items-center justify-center gap-10">
+                    <%= image_tag "no_data_gif.gif", class: "w-auto h-[500px]" %>
+                    <div class="w-full h-full flex flex-col items-start justify-start gap-2 my-6">
+                        <h2 class="text-4xl font-medium font-mono mb-4">No Category found! Create your first category by clicking the button below.</h2>
+                        <p class="font-medium px-5 py-2.5 text-lg bg-[var(--primary-color)] text-white cursor-pointer rounded-lg"><%= link_to  'Add Category', new_category_path() %></p>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+        <% @categories.each do |category| %>
+            <div class="w-full mx-auto flex flex-col items-start justify-center border border-gray-400 rounded-lg overflow-hidden shadow-md">
+                <%= link_to category.name, category_path(category.id), class: "font-bold text-3xl text-center w-full text-[var(--primary-color)] p-4"%>
+                <p class="h-14 text-lg px-4 py-2 bg-[var(--light-blue)] border-t border-gray-400 text-[var(--primary-color)] w-full flex items-center justify-center">
+                    <small>Created <span class="font-bold"><%= time_ago_in_words(category.created_at) %></span> ago, 
+                    edited <span class="font-bold"><%= time_ago_in_words(category.updated_at) %></span> ago</small>
+                </p>
+            </div>
+        <% end %>
+        <button class="bg-[var(--primary-color)] text-[var(--secondary-color)] px-6 py-2 rounded-lg" onclick="window.scrollTo({ top: 0, left: 0, behavior: 'smooth'})">Back To Top</button>
+        <div class="flickr_pagination">
+            <%= will_paginate @categories, :container => false %>
+        </div>
+    </div>
+</div>
