@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :categories, except: [:destroy]
+  resources :categories
 
   root 'pages#home'
   get 'about', to: 'pages#about'

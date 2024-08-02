@@ -1,1 +1,14 @@
-asda
+<div class="h-full w-full pt-6 py-14 bg-[var(--secondary-color)]">
+    <h1 class="w-full text-center text-6xl font-bold my-10 text-[var(--primary-color)]">Edit Category</h1>
+
+    <%= render 'shared/errors', obj: @category %>
+    <div class="max-w-[800px] shadow-lg w-full mx-auto bg-[var(--primary-color)] rounded-xl p-8 py-8 ">
+        <%= form_with model: @category, local: true, class: 'w-full flex flex-col items-center justify-center' do |f| %>
+            <div class="h-auto mb-6 w-full relative">
+                <p class="text-lg text-[var(--light-blue)] font-mono mb-1"><%= f.label :name, "Category" %></p>
+                <%= f.text_field :name, placeholder: "Enter Category Name", class: "border !border-[var(--light-blue)] transition-all duration-300 focus:ring-2 focus:ring-offset-2 focus:!ring-offset-[var(--primary-color)] focus:ring-[var(--secondary-color)] font-light text-lg rounded-lg px-3 bg-transparent !outline-none text-white tracking-wide w-full h-12" %>
+            </div>
+            <%= f.submit 'Update Category', { class: "border cursor-pointer mx-auto bg-[var(--secondary-color)] text-lg text-[var(--primary-color)] font-medium rounded-lg font-medium p-2 px-4 hover:-translate-y-0.5 transition-all duration-300" } %>
+        <% end %>
+    </div>
+</div>
