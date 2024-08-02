@@ -20,7 +20,11 @@
         <% end %>
         <% @categories.each do |category| %>
             <div class="w-full mx-auto flex flex-col items-start justify-center border border-gray-400 rounded-lg overflow-hidden shadow-md">
-                <%= link_to category.name, category_path(category.id), class: "font-bold text-3xl text-center w-full text-[var(--primary-color)] p-4"%>
+                <%= link_to category.name, category_path(category.id), class: "font-bold text-3xl text-center w-full text-[var(--primary-color)] p-4 pb-2"%>
+                <p class="w-full text-center mb-5 text-lg font-light">
+                    <% @articles = ArticleCategory.where(category_id: category.id) %>
+                    <%= pluralize(@articles.length, "article") %>
+                </p>
                 <p class="h-14 text-lg px-4 py-2 bg-[var(--light-blue)] border-t border-gray-400 text-[var(--primary-color)] w-full flex items-center justify-center">
                     <small>Created <span class="font-bold"><%= time_ago_in_words(category.created_at) %></span> ago, 
                     edited <span class="font-bold"><%= time_ago_in_words(category.updated_at) %></span> ago</small>
