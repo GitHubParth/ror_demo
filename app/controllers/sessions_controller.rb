@@ -8,13 +8,8 @@ class SessionsController < ApplicationController
         user = User.find_by(:email => params[:session][:email].downcase)
         password = params[:session][:password]
         if user && user.authenticate(password)
-            # if params[:session][:remember_me] == "1" do
-                session[:user_id] = user.id
-            # else
-            #     session[:user_id] = ""
-            # end
-            flash.now[:notice] = "Logged in successfully."
-            redirect_to user_path(user)
+            session[:user_id] = user.id
+            redirect_to user_path(user), notice: "Logged in successfully."
         else
             flash.now[:alert] = "Wrong details entered. Please enter correct details"
             render 'new', status: 422
@@ -23,8 +18,7 @@ class SessionsController < ApplicationController
 
     def destroy
         if session[:user_id] != nil then session[:user_id] = nil end
-        flash[:notice] = "Logged Out"
-        redirect_to root_path
+        redirect_to root_path, notice: "Logged Out"
     end
 
     private
