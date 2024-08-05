@@ -76,16 +76,14 @@ class UsersController < ApplicationController
   end
 
   def require_same_user
-    if current_user != @user && current_user.role != "admin"
-      flash[:warning] = "You can only edit or delete your profile."
-      redirect_to @user
+    if current_user != @user && !current_user.role.include?("admin")
+      redirect_to @user, warning: "You can only edit or delete your profile."
     end
   end
 
   def check_if_role_user
     if !current_user.nil? && current_user.role == "user"
-      flash[:warning] = "Your current role doesn't support this operation."
-      redirect_to users_path
+      redirect_to users_path, warning: "Your current role doesn't support this operation."
     end
   end
 
