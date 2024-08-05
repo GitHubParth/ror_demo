@@ -24,8 +24,7 @@ class ArticlesController < ApplicationController
     @article = Article.new(whitelist_params)
     @article.user = current_user
     if @article.save
-      flash[:notice] = "Article created successfully"
-      redirect_to @article
+      redirect_to @article, notice: "Article created successfully"
     else 
       render 'new', status: 422
     end
@@ -33,8 +32,7 @@ class ArticlesController < ApplicationController
 
   def update
     if @article.update(whitelist_params)
-      flash[:notice] = "Article was updated successfully"
-      redirect_to @article
+      redirect_to @article, notice: "Article was updated successfully"
     else
       render 'edit', status: 422
     end
@@ -57,8 +55,7 @@ class ArticlesController < ApplicationController
 
   def require_same_user
     if current_user != @article.user && !current_user.role.include?('admin')
-      flash[:warning] = "You can only edit of delete your own articles."
-      redirect_to @article
+      redirect_to @article, warning: "You can only edit of delete your own articles."
     end
   end
 end
