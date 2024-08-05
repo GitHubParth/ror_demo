@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :find_user, only: [:show, :destroy, :update, :edit]
+  before_action :find_user, only: [:show, :destroy, :update, :edit, :make_admin, :remove_admin]
   before_action :require_user, except: [:index, :new, :create]
   before_action :require_same_user, only: [:edit, :update, :destroy]
   before_action :check_if_role_user, only: [:new]
@@ -11,7 +11,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    @articles = @user.articles.paginate(:page => params[:page], :per_page => 5)
+    if @user.nil?
+      redirect_to users_path
+    else
+      @articles = @user.articles.paginate(:page => params[:page], :per_page => 5)
+    end
   end
 
   def new
@@ -25,8 +29,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      flash[:notice] = "Welcome to BlogSpot, #{@user.username}. You have successfully signed up."
-      redirect_to users_path
+      redirect_to users_path, notice: "Welcome to BlogSpot, #{@user.username}. You have successfully signed up."
     else
       render 'new', status: 422
     end
@@ -34,8 +37,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      flash[:notice] = "Hello #{@user.username}! Your data has been updated successfully."
-      redirect_to users_path
+      redirect_to users_path, notice: "Hello #{@user.username}! Your data has been updated successfully."
     else
       render 'edit', status: 422
     end
@@ -44,12 +46,10 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     session[:user_id] = nil if @user == current_user
-    flash[:notice] = "Account and all the associated articles have been deleted successfully."
-    redirect_to users_path
+    redirect_to users_path, notice: "Account and all the associated articles have been deleted successfully."
   end
 
   def make_admin
-    @user = User.find(params[:id])
     if @user.update(role: "admin")
       redirect_to users_path, notice: "User has been promoted to admin successfully."
     else
@@ -58,7 +58,6 @@ class UsersController < ApplicationController
   end
 
   def remove_admin
-    @user = User.find(params[:id])
     if @user.update(role: "user")
       redirect_to users_path, notice: "Admin has been demoted to user successfully."
     else
@@ -69,7 +68,7 @@ class UsersController < ApplicationController
   private
 
   def find_user
-    @user = User.find(params[:id])
+    @user = User.find_by(:id => params[:id])
   end
 
   def user_params

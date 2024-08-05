@@ -7,10 +7,14 @@ class CategoriesController < ApplicationController
     end
 
     def show
-        @articles = ArticleCategory.where(category_id: @category.id)
-        @art_list = @articles.map { |a| a.article_id }
-        @articles = Article.where(id: @art_list)
-        @articles = @articles.paginate(:page => params[:page], :per_page => 5)
+        if @category.nil?
+            redirect_to categories_path
+        else
+            @articles = ArticleCategory.where(category_id: @category.id)
+            @art_list = @articles.map { |a| a.article_id }
+            @articles = Article.where(id: @art_list)
+            @articles = @articles.paginate(:page => params[:page], :per_page => 5)
+        end
     end
 
     def new
@@ -23,8 +27,7 @@ class CategoriesController < ApplicationController
     def create
         @category = Category.new(whitelist_params)
         if @category.save
-            flash[:notice] = "New Category has been created successfully."
-            redirect_to @category
+            redirect_to @category, notice: "New Category has been created successfully."
         else
             render 'new', status: 422
         end
@@ -32,8 +35,7 @@ class CategoriesController < ApplicationController
 
     def update
         if @category.update(whitelist_params)
-            flash[:notice] = "Category has been updated successfully."
-            redirect_to @category
+            redirect_to @category, notice: "Category has been updated successfully."
         else
             render 'edit', status: 442
         end
@@ -47,7 +49,7 @@ class CategoriesController < ApplicationController
     private
 
     def find_category
-        @category = Category.find(params[:id])
+        @category = Category.find_by(:id => params[:id])
     end
 
     def whitelist_params
@@ -56,8 +58,7 @@ class CategoriesController < ApplicationController
 
     def require_admin
         if !(logged_in? && current_user.role.include?("admin"))
-            flash[:alert] = "Only admins are allowed to add categories."
-            redirect_to categories_path
+            redirect_to categories_path, alert: "Only admins are allowed to add categories."
         end
     end
 

@@ -4,6 +4,9 @@ class ArticlesController < ApplicationController
   before_action :require_same_user, only: [:edit, :update, :destroy]
 
   def show
+    if @article.nil?
+      redirect_to articles_path
+    end
   end
 
   def index
@@ -45,7 +48,7 @@ class ArticlesController < ApplicationController
   private
 
   def find_article
-    @article = Article.find(params[:id])
+    @article = Article.find_by(:id => params[:id])
   end
 
   def whitelist_params
